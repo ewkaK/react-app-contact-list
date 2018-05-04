@@ -30,7 +30,7 @@ class ContactView extends Component {
     this.setState({
       name: '',
       phone: '',
-      emial: '',
+      email: '',
       groups: ''
     })
   }
@@ -44,8 +44,8 @@ class ContactView extends Component {
   render() {
     return (
       <Fragment>
-        <div class="add-new">
-          <h2 class="App-title ">Add new contact</h2>
+        <div className="add-new">
+          <h2 className="App-title">Add new contact</h2>
           <form onSubmit={this.handleSubmit}>
             <input
               name = "name"
@@ -75,9 +75,29 @@ class ContactView extends Component {
           </form>
         </div>
 
+        <div className="all-contacts">
+         <ul>
+           {
+             this.state.contacts.map(
+               contact => (
+                 <li key = {contact.id}>
+                   <b>{contact.name}</b> <br />
+                   {contact.phone}, {contact.email} <br />
 
-        <ul>
-        </ul>
+                   {(contact.groups.length === 0) ? null
+                     : contact.groups.split(' ').map(
+                       group => (
+                         (group[group.length-1] === ',') ? ('[' + group.slice(0, -1) + '], ')
+                           : ('[' + group + '], ')
+                       )
+                     )
+                   }
+                 </li>
+               )
+             )
+           }
+         </ul>
+        </div>
       </Fragment>
     )
   }
