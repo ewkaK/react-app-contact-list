@@ -13,6 +13,26 @@ class ContactView extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
+    //add to array contacts
+    this.setState({
+      contacts: this.state.contacts.concat({
+        id: (this.state.contacts.length === 0) ? 0
+          : Math.max(...this.state.contacts.map(contact => contact.id)) + 1,
+        name: this.state.name,
+        phone: this.state.phone,
+        email: this.state.email,
+        groups: this.state.groups,
+      })
+    })
+
+    //reset fields
+    this.setState({
+      name: '',
+      phone: '',
+      emial: '',
+      groups: ''
+    })
   }
 
   handleChange = event => {
@@ -57,7 +77,6 @@ class ContactView extends Component {
 
 
         <ul>
-
         </ul>
       </Fragment>
     )
