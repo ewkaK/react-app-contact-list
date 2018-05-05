@@ -7,7 +7,6 @@ class ContactView extends Component {
     phone: '',
     email: '',
     groups: '',
-
     contacts: []
   }
 
@@ -39,6 +38,16 @@ class ContactView extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+  }
+
+  removeContact = contactId => {
+    this.setState(
+      ({ contacts }) => ({
+        contacts: contacts.filter(
+          contact => contact.id !== contactId
+        )
+      })
+    )
   }
 
   render() {
@@ -81,17 +90,25 @@ class ContactView extends Component {
              this.state.contacts.map(
                contact => (
                  <li key = {contact.id}>
-                   <b>{contact.name}</b> <br />
-                   {contact.phone}, {contact.email} <br />
+                   <div>
+                     <b>{contact.name}</b> <br />
+                     {contact.phone}, {contact.email} <br />
 
-                   {(contact.groups.length === 0) ? null
-                     : contact.groups.split(' ').map(
-                       group => (
-                         (group[group.length-1] === ',') ? ('[' + group.slice(0, -1) + '], ')
-                           : ('[' + group + '], ')
+                     {(contact.groups.length === 0) ? null
+                       : contact.groups.split(' ').map(
+                         group => (
+                           (group[group.length-1] === ',') ? ('[' + group.slice(0, -1) + '], ')
+                             : ('[' + group + '], ')
+                         )
                        )
-                     )
-                   }
+                     }
+                   </div>
+
+                   <div>
+                     <button onClick={() => this.removeContact(contact.id)}>
+                       Delete
+                     </button>
+                   </div>
                  </li>
                )
              )
