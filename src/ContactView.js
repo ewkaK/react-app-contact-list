@@ -60,13 +60,15 @@ class ContactView extends Component {
               name = "name"
               value = {this.state.name}
               onChange = {this.handleChange}
-              placeholder = "Name" />
+              placeholder = "Name"
+              required />
             <br />
             <input
               name="phone"
               value = {this.state.phone}
               onChange = {this.handleChange}
-              placeholder="Phone" />
+              placeholder="Phone"
+              required />
             <br />
             <input
               name="email"
@@ -78,7 +80,7 @@ class ContactView extends Component {
               name="groups"
               value = {this.state.groups}
               onChange = {this.handleChange}
-              placeholder="Groups" />
+              placeholder="Groups eg. work, school, family" />
             <br />
             <button>Add</button>
           </form>
@@ -98,17 +100,14 @@ class ContactView extends Component {
                        : contact.groups.split(' ').map(
                          group => (
                            (group[group.length-1] === ',') ? ('[' + group.slice(0, -1) + '], ')
-                             : ('[' + group + '], ')
+                             : ('[' + group + '] ')
                          )
                        )
                      }
                    </div>
-
-                   <div>
-                     <button onClick={() => this.removeContact(contact.id)}>
-                       Delete
-                     </button>
-                   </div>
+                   <button onClick={() => this.removeContact(contact.id)}>
+                     Delete
+                   </button>
                  </li>
                )
              )
